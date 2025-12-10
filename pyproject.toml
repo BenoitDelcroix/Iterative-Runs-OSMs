@@ -1,0 +1,10 @@
+[project]
+name = "iterative-runs-osms"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "dask[complete]>=2025.11.0",
+    "ipykernel>=7.1.0",
+]
