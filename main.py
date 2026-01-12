@@ -19,6 +19,23 @@ def batch_building_simulation(building_dir):
 							 "2020s_CAN_QC_Montreal-Trudeau.Intl.AP.716270_CWEC2016_modified.epw")
 	RESULTS_DIR = os.path.join(CURRENT_PATH,"results",os.path.basename(building_dir))
 	
+	# Check if the IDF and weather files exist
+	if not os.path.isfile(IDF_FILE):
+		print(f"Error: IDF file not found at {IDF_FILE}")
+		# Save an error log in the results directory
+		error_log_path = os.path.join(RESULTS_DIR, "error_log.txt")
+		with open(error_log_path, "w") as f:
+			f.write(f"Error: IDF file not found at {IDF_FILE}\n")
+		return
+	if not os.path.isfile(WEATHER_FILE):
+		print(f"Error: Weather file not found at {WEATHER_FILE}")
+		# Save an error log in the results directory
+		error_log_path = os.path.join(RESULTS_DIR, "error_log.txt")
+		with open(error_log_path, "w") as f:
+			f.write(f"Error: Weather file not found at {WEATHER_FILE}\n")
+		return
+	
+	# Run the EnergyPlus simulation
 	subprocess.run(["energyplus",IDF_FILE,
 				    "-w",WEATHER_FILE,
 					"--output-directory",RESULTS_DIR])
