@@ -13,6 +13,11 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 # Install common Python tools
 RUN pip3 install --upgrade pip
 
+# Install git
+RUN apt-get update && \
+	apt-get install -y git && \
+	rm -rf /var/lib/apt/lists/*
+
 # Install UV package manager
 # RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 RUN pip3 install uv
